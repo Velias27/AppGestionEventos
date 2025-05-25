@@ -1,10 +1,10 @@
-//screens\TabsNavigator.js
+//src\navigation\TabsNavigator.js
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import IonIcons from "@expo/vector-icons/Ionicons";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
-import EventListScreen from "../screens/EventListScreen";
-import MyEventsScreen from "../screens/MyEventsScreen";
+import UpcomingEventsScreen from "../screens/UpcomingEventsScreen";
+import PastEventsScreen from "../screens/PastEventsScreen";
 import StatsScreen from "../screens/StatsScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 
@@ -13,6 +13,7 @@ const Tab = createBottomTabNavigator();
 export default function TabsNavigator() {
   return (
     <Tab.Navigator
+      initialRouteName="Eventos"
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarActiveTintColor: "#007AFF",
@@ -21,25 +22,25 @@ export default function TabsNavigator() {
           let iconName;
           if (route.name === "Eventos") {
             iconName = focused ? "calendar" : "calendar-outline";
-          } else if (route.name === "Mis Eventos") {
+          } else if (route.name === "MisEventos") {
             iconName = focused ? "list" : "list-outline";
           } else if (route.name === "Estadísticas") {
             iconName = focused ? "stats-chart" : "stats-chart-outline";
           } else if (route.name === "Perfil") {
             iconName = focused ? "person" : "person-outline";
           }
-          return <IonIcons name={iconName} size={size} color={color} />;
+          return <Ionicons name={iconName} size={size} color={color} />;
         },
       })}
     >
       <Tab.Screen
         name="Eventos"
-        component={EventListScreen}
+        component={UpcomingEventsScreen}
         options={{ title: "Eventos" }}
       />
       <Tab.Screen
-        name="Mis Eventos"
-        component={MyEventsScreen}
+        name="MisEventos"
+        component={PastEventsScreen}
         options={{ title: "Mis eventos" }}
       />
       <Tab.Screen

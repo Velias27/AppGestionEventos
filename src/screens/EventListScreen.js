@@ -1,7 +1,7 @@
 //screens\EventListScreen.js
 import React, { useEffect, useState } from "react";
 import { FlatList, Text, TouchableOpacity, Image } from "react-native";
-import { db } from "../../firebaseConfig";
+import { db } from "../firebase/firebaseConfig";
 import {
   collection,
   query,

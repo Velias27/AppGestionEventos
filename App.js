@@ -3,11 +3,10 @@ import React, { useState, useEffect } from "react";
 import { View, ActivityIndicator } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { auth } from "./firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./src/firebase/firebaseConfig";
 
 import LoginScreen from "./src/screens/LoginScreen";
-import HomeScreen from "./src/screens/HomeScreen";
 import TabsNavigator from "./src/navigation/TabsNavigator";
 import EventDetailScreen from "./src/screens/EventDetailScreen";
 import CreateEventScreen from "./src/screens/CreateEventScreen";
@@ -19,11 +18,11 @@ export default function App() {
   const [initializing, setInit] = useState(true);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (u) => {
+    const unsubscribe = onAuthStateChanged(auth, (u) => {
       setUser(u);
       if (initializing) setInit(false);
     });
-    return unsub;
+    return unsubscribe;
   }, [initializing]);
 
   if (initializing) {
