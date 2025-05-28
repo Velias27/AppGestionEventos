@@ -8,8 +8,6 @@ import { auth } from "./src/firebase/firebaseConfig";
 
 import LoginScreen from "./src/screens/LoginScreen";
 import TabsNavigator from "./src/navigation/TabsNavigator";
-import EventDetailScreen from "./src/screens/EventDetailScreen";
-import CreateEventScreen from "./src/screens/CreateEventScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -35,31 +33,11 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         {user ? (
-          <>
-            <Stack.Screen
-              name="Main"
-              component={TabsNavigator}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="EventDetail"
-              component={EventDetailScreen}
-              options={{ title: "Detalle de evento" }}
-            />
-            <Stack.Screen
-              name="CreateEvent"
-              component={CreateEventScreen}
-              options={{ title: "Crear evento" }}
-            />
-          </>
+          <Stack.Screen name="Main" component={TabsNavigator} />
         ) : (
-          <Stack.Screen
-            name="Login"
-            component={LoginScreen}
-            options={{ headerShown: false }}
-          />
+          <Stack.Screen name="Login" component={LoginScreen} />
         )}
       </Stack.Navigator>
     </NavigationContainer>

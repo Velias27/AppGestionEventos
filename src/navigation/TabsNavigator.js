@@ -1,9 +1,9 @@
-//src\navigation\TabsNavigator.js
+// src\navigation\TabsNavigator.js
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-import UpcomingEventsScreen from "../screens/UpcomingEventsScreen";
+import EventsStackNavigator from "./EventsStackNavigator"; // ⬅
 import PastEventsScreen from "../screens/PastEventsScreen";
 import StatsScreen from "../screens/StatsScreen";
 import ProfileScreen from "../screens/ProfileScreen";
@@ -13,29 +13,28 @@ const Tab = createBottomTabNavigator();
 export default function TabsNavigator() {
   return (
     <Tab.Navigator
-      initialRouteName="Eventos"
+      initialRouteName="EventosTab"
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarActiveTintColor: "#007AFF",
         tabBarInactiveTintColor: "gray",
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-          if (route.name === "Eventos") {
+          if (route.name === "EventosTab")
             iconName = focused ? "calendar" : "calendar-outline";
-          } else if (route.name === "MisEventos") {
+          else if (route.name === "MisEventos")
             iconName = focused ? "list" : "list-outline";
-          } else if (route.name === "Estadísticas") {
+          else if (route.name === "Estadísticas")
             iconName = focused ? "stats-chart" : "stats-chart-outline";
-          } else if (route.name === "Perfil") {
+          else if (route.name === "Perfil")
             iconName = focused ? "person" : "person-outline";
-          }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
       })}
     >
       <Tab.Screen
-        name="Eventos"
-        component={UpcomingEventsScreen}
+        name="EventosTab"
+        component={EventsStackNavigator}
         options={{ title: "Eventos" }}
       />
       <Tab.Screen

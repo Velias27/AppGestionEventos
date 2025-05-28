@@ -1,6 +1,13 @@
-//src\screens\UpcomingEventsScreen.js
+// src/screens/UpcomingEventsScreen.js
 import React, { useEffect, useState } from "react";
-import { View, FlatList, TouchableOpacity, Text } from "react-native";
+import {
+  View,
+  FlatList,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+} from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
 import { db } from "../firebase/firebaseConfig";
 import {
   collection,
@@ -36,27 +43,60 @@ export default function UpcomingEventsScreen({ navigation }) {
 
   if (events.length === 0) {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <View style={styles.empty}>
         <Text>No hay eventos próximos.</Text>
       </View>
     );
   }
 
   return (
-    <FlatList
-      data={events}
-      keyExtractor={(item) => item.id}
-      renderItem={({ item }) => (
-        <TouchableOpacity
-          onPress={() => navigation.navigate("EventDetail", { id: item.id })}
-        >
-          <EventCard
-            title={item.title}
-            fechaInicio={item.fechaInicio}
-            imageURL={item.imageURL}
-          />
-        </TouchableOpacity>
-      )}
-    />
+    <View style={styles.container}>
+      <FlatList
+        data={events}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            onPress={() => navigation.navigate("EventDetail", { id: item.id })}
+          >
+            <EventCard
+              title={item.title}
+              fechaInicio={item.fechaInicio}
+              imageURL={item.imageURL}
+            />
+          </TouchableOpacity>
+        )}
+      />
+
+      {/* FAB para crear evento */}
+      <TouchableOpacity
+        style={styles.fab}
+        onPress={() => navigation.navigate("CreateEvent")}
+      >
+        <MaterialIcons name="add" size={32} color="#fff" />
+      </TouchableOpacity>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  empty: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  fab: {
+    position: "absolute",
+    right: 20,
+    bottom: 40,
+    backgroundColor: "#007AFF",
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 5,
+  },
+});
