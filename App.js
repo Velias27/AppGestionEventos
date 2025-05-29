@@ -16,8 +16,8 @@ export default function App() {
   const [initializing, setInit] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (u) => {
-      setUser(u);
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
       if (initializing) setInit(false);
     });
     return unsubscribe;
